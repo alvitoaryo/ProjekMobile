@@ -81,7 +81,7 @@ class _CountryPageState extends State<CountryPage> {
                                   'COUNTRY : ' + countryData[index]['country'],
                                   style: const TextStyle(
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 50,
+                                    fontSize: 40,
                                     color: Colors.black,
                                   ),
                                 ),

@@ -31,18 +31,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Profil Page"), actions:[
-          IconButton(
-            onPressed: () {
-              userdata.setBool('status', true);
-              Navigator.pushReplacement(
-                context,
-                MaterialPageRoute(builder: (context) => const LoginPage()),
-              );
-            },
-            icon: const Icon(Icons.logout),
-          ),
-      ]),
+        title: const Text("Profil Page"),
+      ),
       body: Center(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -50,6 +40,10 @@ class _ProfileScreenState extends State<ProfileScreen> {
           children: <Widget>[
             const Padding(
               padding: EdgeInsets.all(15.0),
+            ),
+            CircleAvatar(
+              radius: 80,
+              backgroundImage: AssetImage('images/profile_image.png'),
             ),
             const SizedBox(height: 20),
             Text(
@@ -60,16 +54,16 @@ class _ProfileScreenState extends State<ProfileScreen> {
             const Padding(
               padding: EdgeInsets.all(15.0),
             ),
-            // ElevatedButton(
-            //   onPressed: () {
-            //     userdata.setBool('status', true);
-            //     Navigator.pushReplacement(
-            //       context,
-            //       MaterialPageRoute(builder: (context) => const LoginPage()),
-            //     );
-            //   },
-            //   child: const Text('Logout'),
-            // ),
+            ElevatedButton(
+              onPressed: () {
+                userdata.setBool('status', true);
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => const LoginPage()),
+                );
+              },
+              child: const Text('Logout'),
+            ),
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {

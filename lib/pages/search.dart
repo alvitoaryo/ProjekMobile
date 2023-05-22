@@ -82,7 +82,7 @@ class Search extends SearchDelegate {
                               'COUNTRY : ' + suggestionList[index]['country'],
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 40,
+                                fontSize: 50,
                                 color: Colors.black,
                               ),
                             ),

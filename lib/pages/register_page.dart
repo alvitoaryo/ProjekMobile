@@ -18,22 +18,16 @@ class _RegisterPageState extends State<RegisterPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: const Text("Register Page"),
+        backgroundColor: Colors.blue,
+      ),
       body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/images.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
         padding: const EdgeInsets.all(15),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            CircleAvatar(
-              radius: 80,
-              backgroundImage: AssetImage('images/logo.png'),
-            ),
             const Padding(
               padding: EdgeInsets.all(15),
               child: Text(
@@ -45,8 +39,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 ),
               ),
             ),
-            Container(
-              color: Colors.white.withOpacity(0.8), // Ubah ke warna dan tingkat transparansi yang diinginkan
+            Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
                 controller: _usernameController,
@@ -62,8 +55,7 @@ class _RegisterPageState extends State<RegisterPage> {
                 },
               ),
             ),
-            Container(
-              color: Colors.white.withOpacity(0.8), // Ubah ke warna dan tingkat transparansi yang diinginkan
+            Padding(
               padding: const EdgeInsets.all(15.0),
               child: TextFormField(
                 controller: _passwordController,
@@ -86,7 +78,6 @@ class _RegisterPageState extends State<RegisterPage> {
       ),
     );
   }
-
 
   Widget _commonSubmitButton({
     required String labelButton,

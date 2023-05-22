@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'profile.dart';
 import 'package:covid_19/homepage.dart';
+import '../hitung/hitung.dart'; // Import hitung.dart
 
 class Navbar extends StatefulWidget {
   const Navbar({Key? key}) : super(key: key);
@@ -14,6 +15,7 @@ class _NavbarState extends State<Navbar> {
   final _screenList = [
     const HomePage(),
     const ProfileScreen(),
+    const Hitung(), // Tambahkan Halaman Perhitungan
   ];
 
   @override
@@ -29,6 +31,10 @@ class _NavbarState extends State<Navbar> {
           BottomNavigationBarItem(
             icon: Icon(Icons.person_rounded),
             label: 'Profil',
+          ),
+          BottomNavigationBarItem( // Tambahkan item untuk Perhitungan
+            icon: Icon(Icons.calculate_rounded),
+            label: 'Perhitungan',
           ),
         ],
         currentIndex: _selectedIndex,

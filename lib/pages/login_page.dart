@@ -33,83 +33,62 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage('images/images.jpg'),
-            fit: BoxFit.cover,
-          ),
-        ),
-        child: Center(
-          child: Container(
-            color: Colors.white.withOpacity(0.4), // Ubah ke warna dan tingkat transparansi yang diinginkan
-            padding: const EdgeInsets.all(16.0),
-            child: Form(
-              key: _formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Padding(
-                    padding: const EdgeInsets.all(15),
-                    child: Column(
-                      children: [
-                        CircleAvatar(
-                          radius: 80,
-                          backgroundImage: AssetImage('images/logo.png'),
-                        ),
-                        const SizedBox(height: 10),
-                        Text(
-                          'Login',
-                          style: TextStyle(
-                            color: Colors.blue,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 30,
-                          ),
-                        ),
-                      ],
-                    ),
+      appBar: AppBar(
+        title: const Text('Login Page'),
+      ),
+      body: Center(
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const Padding(
+                padding: EdgeInsets.all(15),
+                child: Text(
+                  'Login',
+                  style: TextStyle(
+                    color: Colors.blue,
+                    fontWeight: FontWeight.bold,
+                    fontSize: 30,
                   ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      controller: _usernameController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.person),
-                        border: OutlineInputBorder(),
-                        labelText: "Username",
-                      ),
-                      validator: (value) =>
-                      value!.isEmpty ? 'Username cannot be blank' : null,
-                    ),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.all(15.0),
-                    child: TextFormField(
-                      controller: _passwordController,
-                      decoration: const InputDecoration(
-                        prefixIcon: Icon(Icons.lock),
-                        border: OutlineInputBorder(),
-                        labelText: "Password",
-                      ),
-                      obscureText: true,
-                      validator: (value) =>
-                      value!.isEmpty ? 'Password cannot be blank' : null,
-                    ),
-                  ),
-                  _buildLoginButton(),
-                  _buildRegisterButton(),
-                ],
+                ),
               ),
-            ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextFormField(
+                  controller: _usernameController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.person),
+                    border: OutlineInputBorder(),
+                    labelText: "Username",
+                  ),
+                  validator: (value) =>
+                      value!.isEmpty ? 'Username cannot be blank' : null,
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.all(15.0),
+                child: TextFormField(
+                  controller: _passwordController,
+                  decoration: const InputDecoration(
+                    prefixIcon: Icon(Icons.lock),
+                    border: OutlineInputBorder(),
+                    labelText: "Password",
+                  ),
+                  obscureText: true,
+                  validator: (value) =>
+                      value!.isEmpty ? 'Password cannot be blank' : null,
+                ),
+              ),
+              _buildLoginButton(),
+              _buildRegisterButton(),
+            ],
           ),
         ),
       ),
     );
   }
-
-
-
 
   Widget _commonSubmitButton({
     required String labelButton,

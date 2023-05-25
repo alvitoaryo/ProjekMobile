@@ -106,7 +106,7 @@ class SaranKesanPage extends StatelessWidget {
       const SizedBox(height: 10),
       ListTile(
         leading: const Icon(Icons.star),
-        title: const Text('mata kuliah yang sangat WAW'),
+        title: const Text('Semoga nilai matakuliah ini mendapat nilai A'),
       ),
       const SizedBox(height: 10),
     ],

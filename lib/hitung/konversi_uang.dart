@@ -9,6 +9,16 @@ class KonversiUang extends StatefulWidget {
 
 class _KonversiUangState extends State<KonversiUang> {
   TextEditingController _amountController = TextEditingController();
+  String selectedCurrencyFrom = 'IDR';
+  String selectedCurrencyTo = 'USD';
+  Map<String, double> kurs = {
+    'IDR': 1.0,
+    'USD': 0.000069,
+    'JPY': 0.0072,
+    'SAR': 0.00027,
+    'YEN': 139.0,
+    'RIYAL': 3.75,
+  };
   double result = 0.0;
 
   @override
@@ -17,100 +27,88 @@ class _KonversiUangState extends State<KonversiUang> {
     super.dispose();
   }
 
+  void convertCurrency() {
+    double amount = double.tryParse(_amountController.text) ?? 0;
+    double kursFrom = kurs[selectedCurrencyFrom] ?? 0.0;
+    double kursTo = kurs[selectedCurrencyTo] ?? 0.0;
+
+    double convertedAmount = amount * kursTo / kursFrom;
+
+    setState(() {
+      result = convertedAmount;
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
+      appBar: AppBar(
         title: const Text('Konversi Mata Uang'),
-    ),
+      ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            TextField(
-              controller: _amountController,
-              keyboardType: TextInputType.number,
-              decoration: const InputDecoration(
-                labelText: 'Jumlah Mata Uang (IDR)',
-              ),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                double rupiah = double.tryParse(_amountController.text) ?? 0;
-                double kursUSD = 0.000071;
-                double usd = rupiah * kursUSD;
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Konversi Rupiah ke USD'),
-                      content: Text('$rupiah Rupiah = $usd USD'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                            },
-                          child: const Text('Tutup'),
-                        ),
-                      ],
-                    );
-                    },
-                );
-                },
-              child: const Text('Konversi ke USD'),
-            ),
-            const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                double rupiah = double.tryParse(_amountController.text) ?? 0;
-                double kursSAR = 0.00027;
-                double usd = rupiah * kursSAR;
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Konversi Rupiah ke SAR'),
-                      content: Text('$rupiah Rupiah = $usd SAR'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Tutup'),
-                        ),
-                      ],
-                    );
+            Column(
+              children: [
+                DropdownButton<String>(
+                  value: selectedCurrencyFrom,
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        selectedCurrencyFrom = newValue;
+                      });
+                    }
                   },
-                );
-              },
-              child: const Text('Konversi ke SAR'),
+                  items: <String>['IDR', 'USD', 'JPY', 'SAR']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 20),
+                DropdownButton<String>(
+                  value: selectedCurrencyTo,
+                  onChanged: (String? newValue) {
+                    if (newValue != null) {
+                      setState(() {
+                        selectedCurrencyTo = newValue;
+                      });
+                    }
+                  },
+                  items: <String>['IDR', 'USD', 'JPY', 'SAR']
+                      .map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(),
+                ),
+                const SizedBox(height: 20),
+                ElevatedButton(
+                  onPressed: convertCurrency,
+                  child: const Text('Konversi'),
+                ),
+              ],
             ),
             const SizedBox(height: 20),
-            ElevatedButton(
-              onPressed: () {
-                double rupiah = double.tryParse(_amountController.text) ?? 0;
-                double kursJPY = 8.77;
-                double usd = rupiah * kursJPY;
-                showDialog(
-                  context: context,
-                  builder: (BuildContext context) {
-                    return AlertDialog(
-                      title: const Text('Konversi Rupiah ke JPY'),
-                      content: Text('$rupiah Rupiah = $usd JPY'),
-                      actions: [
-                        TextButton(
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                          child: const Text('Tutup'),
-                        ),
-                      ],
-                    );
-                  },
-                );
-              },
-              child: const Text('Konversi ke JPY'),
+            Column(
+              children: [
+                TextField(
+                  controller: _amountController,
+                  keyboardType: TextInputType.number,
+                  decoration: InputDecoration(
+                    labelText: 'Jumlah Mata Uang ($selectedCurrencyFrom)',
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Text(
+                  'Hasil Konversi: ${result.toStringAsFixed(2)} $selectedCurrencyTo',
+                  style: const TextStyle(fontSize: 18),
+                ),
+              ],
             ),
           ],
         ),
@@ -118,4 +116,3 @@ class _KonversiUangState extends State<KonversiUang> {
     );
   }
 }
-

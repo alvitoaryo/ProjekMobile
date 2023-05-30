@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 
 class KonversiUang extends StatefulWidget {
   const KonversiUang({Key? key}) : super(key: key);
@@ -42,6 +43,7 @@ class _KonversiUangState extends State<KonversiUang> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Konversi Mata Uang'),
       ),
@@ -90,6 +92,9 @@ class _KonversiUangState extends State<KonversiUang> {
                 ElevatedButton(
                   onPressed: convertCurrency,
                   child: const Text('Konversi'),
+                    style: ButtonStyle(
+                      backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+                  )
                 ),
               ],
             ),

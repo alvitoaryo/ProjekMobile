@@ -1,6 +1,9 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:covid_19/helper/hive_database.dart';
 import 'package:covid_19/model/data_model.dart';
+import 'package:crypto/crypto.dart';
 
 class RegisterPage extends StatefulWidget {
   const RegisterPage({Key? key}) : super(key: key);
@@ -107,9 +110,10 @@ class _RegisterPageState extends State<RegisterPage> {
       submitCallback: (value) {
         if (_usernameController.text.isNotEmpty &&
             _passwordController.text.isNotEmpty) {
+          final hashedPassword = sha256.convert(utf8.encode(_passwordController.text)).toString();
           _hive.addData(DataModel(
               username: _usernameController.text,
-              password: _passwordController.text));
+              password: hashedPassword));
           _usernameController.clear();
           _passwordController.clear();
           setState(() {});

@@ -1,8 +1,11 @@
+import 'dart:convert';
+
 import 'package:covid_19/pages/bottom_navbar.dart';
 import 'package:covid_19/pages/register_page.dart';
 import 'package:flutter/material.dart';
 import 'package:covid_19/helper/hive_database.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:crypto/crypto.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -16,6 +19,25 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  void initState() {
+    super.initState();
+    checkIsLogin();
+  }
+
+  void checkIsLogin() async {
+    final SharedPreferences userdata = await SharedPreferences.getInstance();
+    print(userdata.getString('username'));
+
+    bool? isLogin = (userdata.getString('username') != null) ? true : false;
+
+    if(isLogin && mounted){
+      Navigator.of(context).pushAndRemoveUntil(MaterialPageRoute(
+        builder: (context) => const Navbar(),
+      ),
+              (route) => false);
+    }
+  }
 
   void validateAndSave() {
     final FormState? form = _formKey.currentState;
@@ -117,8 +139,9 @@ class _LoginPageState extends State<LoginPage> {
       labelButton: "Login",
       submitCallback: (value) {
         validateAndSave();
+        final hashedPassword = sha256.convert(utf8.encode(_passwordController.value.text)).toString();
         String currentUsername = _usernameController.value.text;
-        String currentPassword = _passwordController.value.text;
+        String currentPassword = hashedPassword;
 
         _processLogin(currentUsername, currentPassword);
       },
@@ -148,8 +171,6 @@ class _LoginPageState extends State<LoginPage> {
       );
     }
   }
-
-
 
   Widget _buildRegisterButton() {
     return Row(

@@ -30,6 +30,7 @@ class _CountryPageState extends State<CountryPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
         actions: <Widget>[
           IconButton(
@@ -124,12 +125,14 @@ class _CountryPageState extends State<CountryPage> {
                       }));
                     },
                     child: Container(
+                      color: Colors.white,
                       height: 100,
                       margin: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 10),
                       child: Row(
                         children: <Widget>[
                           Container(
+                            color: Colors.white,
                             width: 100,
                             margin: const EdgeInsets.symmetric(horizontal: 10),
                             child: Column(

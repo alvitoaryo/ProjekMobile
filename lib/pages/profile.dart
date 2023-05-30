@@ -30,7 +30,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       appBar: AppBar(
+        backgroundColor: Colors.blue,
         title: const Text("Profil Page"),
       ),
       body: Center(
@@ -55,15 +57,20 @@ class _ProfileScreenState extends State<ProfileScreen> {
               padding: EdgeInsets.all(15.0),
             ),
             ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 userdata.setBool('status', true);
+                await userdata.remove("username");
                 Navigator.pushReplacement(
                   context,
                   MaterialPageRoute(builder: (context) => const LoginPage()),
                 );
               },
               child: const Text('Logout'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+              ),
             ),
+
             const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
@@ -73,6 +80,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 );
               },
               child: const Text('Saran dan Kesan'),
+              style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all<Color>(Colors.blueAccent),
+              ),
             ),
           ],
         ),
